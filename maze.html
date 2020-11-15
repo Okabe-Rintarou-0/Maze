@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maze</title>
+    <script src=maze.js>
+    </script>
+</head>
+<link rel="stylesheet" href="maze.css">
+<body onload="init()">
+<div class="mainPart">
+    <div class="canvas">
+        <canvas id="leftCanvas" style="border: 1px solid black;padding: 0;" onmousemove="getCordinate(event)"
+                onmousedown="drawStartAndTargetPoint()" onmouseleave="clearCordinate()">
+        </canvas>
+        <canvas id="rightCanvas" style="border: 1px solid black;padding: 0;">
+        </canvas>
+    </div>
+    <p class="totalStep left">totalStep:null</p>
+    <p class="totalStep right">totalStep:null</p>
+    <div class="input">
+        MazeSize: width <input class="inputSize" type="text" name="width" id="inputWidth">
+        height <input type="text" class="inputSize" name="height" id="inputHeight">
+        <button onclick="onClick()">Accept/Reset
+        </button>
+        <br>
+        <div class="formMethods">
+            <p>
+                Methods of forming a maze:
+            </p>
+            <select>
+                <option value="Using DFS">Using DFS</option>
+            </select>
+        </div>
+    </div>
+    <div class="points">
+        <p id="presentPoint"></p>
+        <p id="startPoint"></p>
+        <p id="targetPoint"></p>
+    </div>
+</div>
+</body>
+</html>

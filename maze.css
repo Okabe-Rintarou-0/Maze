@@ -1,0 +1,31 @@
+div.formMethods p {
+    display: inline;
+}
+
+div.formMethods {
+    position: relative;
+    top: 20px;
+    /*position: relative;*/
+    /*top: 20px;*/
+}
+
+div.points {
+    position: relative;
+    top: 20px;
+}
+
+p.totalStep {
+    display: inline-block;
+}
+
+p.left {
+    position: relative;
+    left: 100px;
+}
+
+p.right {
+    position: relative;
+    left: 330px;
+}
+
+
