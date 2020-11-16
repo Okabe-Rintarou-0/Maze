@@ -7,6 +7,9 @@
     </script>
 </head>
 <link rel="stylesheet" href="maze.css">
+<!--<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">-->
+<!--<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">-->
+<!--<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">-->
 <body onload="init()">
 <div class="mainPart">
     <div class="canvas">
@@ -21,7 +24,7 @@
     <div class="input">
         MazeSize: width <input class="inputSize" type="text" name="width" id="inputWidth">
         height <input type="text" class="inputSize" name="height" id="inputHeight">
-        <button onclick="onClick()">Accept/Reset
+        <button onclick="onClick()" class="btn">Accept/Reset
         </button>
         <br>
         <div class="formMethods">
@@ -31,6 +34,8 @@
             <select>
                 <option value="Using DFS">Using DFS</option>
             </select>
+            <p>Animated</p>
+            <input type="radio" class="AnimationRadio" onclick="toggle()">
         </div>
     </div>
     <div class="points">

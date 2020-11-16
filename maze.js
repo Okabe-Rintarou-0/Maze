@@ -19,12 +19,26 @@ var presentCanvasWidth;
 var presentCanvasHeight;
 var presentReqId = [];
 var direction = [[0, -gridSize], [0, gridSize], [-gridSize, 0], [gridSize, 0]];
+var lastState = true;
+var Animated = true;
 
+function toggle() {
+    let animationRadio = document.getElementsByClassName('AnimationRadio');
+
+    if (animationRadio[0].checked === lastState)
+        animationRadio[0].checked = !animationRadio[0].checked;
+    lastState = animationRadio[0].checked;
+    Animated = lastState;
+}
 
 function onClick() {
     for (let index = 0; index <= 1; index++) {
         clearMaze(index);
     }
+
+    changeCanvasSize();
+
+    initMaze();
 
     setPoint_Counter = 0;
     startPoint.innerText = 'targetPoint: (null,null)';
@@ -92,17 +106,21 @@ function drawStartAndTargetPoint() {
     drawMaze(leftCanvas, 0);
     drawMaze(rightCanvas, 1);
     if (setPoint_Counter === 2) {
-        searchForPath_DFS(0, startX, startY);
-        searchForPath_DFS_NEW(1, startX, startY);
+        searchForPath_DFS(0, startX, startY, Animated);
+        searchForPath_DFS_NEW(1, startX, startY, Animated);
         let totalStep = document.getElementsByClassName('totalStep');
         for (let index = 0; index < 2; index++) {
             totalStep[index].innerHTML = 'totalStep:' + (visitedPoints[index].length / 3).toString();
-            drawPath(index, 0);
+            if (Animated) drawPath(index, 0);
+            else {
+                drawMaze(leftCanvas, 0);
+                drawMaze(rightCanvas, 1);
+            }
         }
     }
 }
 
-function searchForPath_DFS_NEW(index, presentX, presentY) {
+function searchForPath_DFS_NEW(index, presentX, presentY, Animated = true) {
     if (presentX === targetX && presentY === targetY) {
         visitedPoints[index].push(presentX);
         visitedPoints[index].push(presentY);
@@ -124,8 +142,8 @@ function searchForPath_DFS_NEW(index, presentX, presentY) {
         if (inRange(nextX, nextY) && !isBlock(index, nextX, nextY) && !hasVisited(index, nextX, nextY)) {
             // alert(presentX.toString() + ',' + presentY.toString());
             // drawMaze(leftCanvas, 0);
-            if (searchForPath_DFS_NEW(index, nextX, nextY)) {
-                setDomain(index, presentX, presentY, 1);
+            if (searchForPath_DFS_NEW(index, nextX, nextY, Animated)) {
+                if (Animated) setDomain(index, presentX, presentY, 1);
                 return true;
             }
         }
@@ -136,7 +154,7 @@ function searchForPath_DFS_NEW(index, presentX, presentY) {
     visitedPoints[index].push(1);
 }
 
-function searchForPath_DFS(index, presentX, presentY) {
+function searchForPath_DFS(index, presentX, presentY, Animated = true) {
 
     // console.log(visitedPoints.length);
     if (presentX === targetX && presentY === targetY) {
@@ -155,13 +173,14 @@ function searchForPath_DFS(index, presentX, presentY) {
         if (inRange(nextX, nextY) && !isBlock(index, nextX, nextY) && !hasVisited(index, nextX, nextY)) {
             // alert(presentX.toString() + ',' + presentY.toString());
             // drawMaze(leftCanvas, 0);
-            if (searchForPath_DFS(index, nextX, nextY)) {
-                setDomain(index, presentX, presentY, 1);
+            if (searchForPath_DFS(index, nextX, nextY, Animated)) {
+                if (Animated) setDomain(index, presentX, presentY, 1);
                 return true;
             }
         }
     }
-    setDomain(index, presentX, presentY, 1);
+    if (Animated)
+        setDomain(index, presentX, presentY, 1);
     visitedPoints[index].push(presentX);
     visitedPoints[index].push(presentY);
     visitedPoints[index].push(1);
@@ -174,7 +193,7 @@ async function sleep(interval) {
 }
 
 
-function drawPath(canvasIndex, drawIndex, method = 1, animated = true) {
+function drawPath(canvasIndex, drawIndex, method = 1) {
     if (drawIndex === visitedPoints[canvasIndex].length / 3) return;
     let x = visitedPoints[canvasIndex][drawIndex * 3];
     let y = visitedPoints[canvasIndex][drawIndex * 3 + 1];
@@ -210,13 +229,15 @@ function initMaze() {
 }
 
 function changeCanvasSize() {
-    const newWidth = inputWidth.value;
-    const newHeight = inputHeight.value;
-    if (isNaN(newWidth) || isNaN(newHeight))
+    presentCanvasWidth = inputWidth.value;
+    presentCanvasHeight = inputHeight.value;
+    if (isNaN(presentCanvasWidth) || isNaN(presentCanvasHeight))
         alert('非法输入！请输入数字');
+    if (presentCanvasHeight % 3 !== 0 || presentCanvasWidth % 3 !== 0)
+        alert('请输入3的倍数！');
 
-    setCanvasSize(leftCanvas, newWidth, newHeight);
-    setCanvasSize(rightCanvas, newWidth, newHeight);
+    setCanvasSize(leftCanvas, presentCanvasWidth, presentCanvasHeight);
+    setCanvasSize(rightCanvas, presentCanvasWidth, presentCanvasHeight);
     initCanvas(leftCanvas);
     initCanvas(rightCanvas);
 }
@@ -408,6 +429,9 @@ function init() {
 
     visitedPoints[0] = [];
     visitedPoints[1] = [];
+
+    let animationRadio = document.getElementsByClassName('AnimationRadio');
+    animationRadio[0].checked = true;
 
     initCanvas(leftCanvas);
     initCanvas(rightCanvas);

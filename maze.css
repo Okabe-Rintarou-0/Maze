@@ -28,4 +28,16 @@ p.right {
     left: 330px;
 }
 
+button.btn {
+    border: 1px #9900FF solid;
+    border-radius: 2px;
+    background-color: white;
+    color: #9900FF;
+}
+
+button.btn:hover {
+    background-color: #f0d6ff;
+}
+
+
 
