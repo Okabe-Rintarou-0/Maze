@@ -24,7 +24,6 @@ var Animated = true;
 
 function toggle() {
     let animationRadio = document.getElementsByClassName('AnimationRadio');
-
     if (animationRadio[0].checked === lastState)
         animationRadio[0].checked = !animationRadio[0].checked;
     lastState = animationRadio[0].checked;
@@ -66,8 +65,9 @@ function copyMaze(index_s, index_t) {
 }
 
 function getCordinate(event) {
-    mouseX = event.clientX - 8;
-    mouseY = event.clientY - 8;
+    var rect = leftCanvas.getBoundingClientRect();
+    mouseX = Math.ceil(event.clientX - rect.x + 0.5);
+    mouseY = Math.ceil(event.clientY - rect.y + 0.5);
     presentPoint = document.getElementById('presentPoint');
     presentPoint.innerText = 'presentPoint: ' + '(' + mouseX.toString() + ',' + mouseY.toString() + ')';
 }
@@ -404,6 +404,9 @@ function formMaze(index, x, y) {
 
 }
 
+function closeModal() {
+    document.getElementById('modal-id').classList.remove('active');
+}
 
 function init() {
     gridSize = 3;
@@ -411,12 +414,16 @@ function init() {
     rightCanvas = document.getElementById("rightCanvas");
     inputWidth = document.getElementById("inputWidth");
     inputHeight = document.getElementById("inputHeight");
-    inputWidth.placeholder = leftCanvas.width;
-    inputHeight.placeholder = leftCanvas.height;
+    leftCanvas.height = leftCanvas.width = 360;
+    rightCanvas.height = rightCanvas.width = 360;
     inputWidth.value = leftCanvas.width;
     inputHeight.value = leftCanvas.height;
     presentCanvasWidth = leftCanvas.width;
     presentCanvasHeight = leftCanvas.height;
+
+    document.getElementById("ModalButton").addEventListener("click", function () {
+        document.getElementById('modal-id').classList.add('active');
+    });
 
     presentPoint = document.getElementById('presentPoint');
     presentPoint.innerText = 'presentPoint: (null,null)';
@@ -435,5 +442,10 @@ function init() {
 
     initCanvas(leftCanvas);
     initCanvas(rightCanvas);
+
     initMaze();
+    formMaze(0, 1, 1);
+    copyMaze(0, 1);
+    drawMaze(leftCanvas, 0);
+    drawMaze(rightCanvas, 1);
 }

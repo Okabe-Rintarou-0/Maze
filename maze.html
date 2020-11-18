@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="close">
 <head>
     <meta charset="UTF-8">
     <title>Maze</title>
@@ -7,16 +7,55 @@
     </script>
 </head>
 <link rel="stylesheet" href="maze.css">
-<!--<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">-->
-<!--<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">-->
-<!--<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">-->
-<body onload="init()">
+<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+<body onload="init()" style="background: #fff0e9;">
+<div class="navigator">
+    <b>Maze</b>
+    <b class="little">
+        Draw mazes and see how algorithm operates.
+    </b>
+    <button id="ModalButton"><b>How to start?</b></button>
+    <div class="modal" id="modal-id">
+        <a href="#close" class="modal-overlay" aria-label="Close"></a>
+        <div class="modal-container">
+            <div class="modal-header">
+                <a href="#close" onclick="closeModal()" class="btn btn-clear float-right" aria-label="Close"></a>
+                <div class="modal-title h5"><b>Tips</b></div>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <p>
+                        &nbsp &nbsp You can start testing with these two mazes by pressing the button Accept/Reset.
+                        After you press
+                        it, two same mazes will occur. By left-clicking the points on the left maze canvas, the start
+                        point
+                        and the target point will be set.(The former is the yellow point and the latter is the green
+                        one.)
+                        <br>
+                        <br>
+                        &nbsp &nbsp You can choose the method of forming a maze. And you can also decide whether the
+                        animation of
+                        finding
+                        path will be shown.
+                        <br>
+                        <br>
+                        &nbsp &nbsp Many functions are still under preparation.
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
 <div class="mainPart">
     <div class="canvas">
-        <canvas id="leftCanvas" style="border: 1px solid black;padding: 0;" onmousemove="getCordinate(event)"
+        <canvas id="leftCanvas"  onmousemove="getCordinate(event)"
                 onmousedown="drawStartAndTargetPoint()" onmouseleave="clearCordinate()">
         </canvas>
-        <canvas id="rightCanvas" style="border: 1px solid black;padding: 0;">
+        <canvas id="rightCanvas" >
         </canvas>
     </div>
     <p class="totalStep left">totalStep:null</p>

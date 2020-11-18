@@ -1,3 +1,4 @@
+
 div.formMethods p {
     display: inline;
 }
@@ -28,16 +29,53 @@ p.right {
     left: 330px;
 }
 
-button.btn {
-    border: 1px #9900FF solid;
-    border-radius: 2px;
-    background-color: white;
-    color: #9900FF;
+div.canvas {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /*border: 2px solid red;*/
 }
 
-button.btn:hover {
-    background-color: #f0d6ff;
+div.canvas canvas {
+
 }
 
+div.navigator {
+    background-color: antiquewhite;
+}
 
+div.navigator b {
+    font-family: Impact;
+    margin-left: 30px;
+    font-size: 300%;
+}
 
+div.navigator b.little {
+    margin: 30px;
+    color: grey;
+    font-size: 160%;
+}
+
+div.navigator button {
+    border-radius: 15px;
+    background-color: #ffdd8e;
+    float: right;
+    margin-top: 15px;
+    border: antiquewhite;
+}
+
+div.navigator button b {
+    margin: auto;
+    font-size: 140%;
+}
+
+/*button.btn {*/
+/*    border: 1px #9900FF solid;*/
+/*    border-radius: 2px;*/
+/*    background-color: white;*/
+/*    color: #9900FF;*/
+/*}*/
+
+/*button.btn:hover {*/
+/*    background-color: #f0d6ff;*/
+/*}*/
