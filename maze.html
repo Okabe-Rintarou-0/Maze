@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Maze</title>
+    <script src="jquery-3.5.1.js"></script>
     <script src=maze.js>
     </script>
 </head>
@@ -12,10 +13,12 @@
 <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
 <body onload="init()" style="background: #fff0e9;">
 <div class="navigator">
-    <b>Maze</b>
-    <b class="little">
+    <b id="MazeIcon">Maze</b>
+    <b class="little animated">
         Draw mazes and see how algorithm operates.
     </b>
+    <a class="little" target="_blank" href="https://github.com/Okabe-Rintarou-0/Maze">Github</a>
+    <a class="little">Contact me</a>
     <button id="ModalButton"><b>How to start?</b></button>
     <div class="modal" id="modal-id">
         <a href="#close" class="modal-overlay" aria-label="Close"></a>
@@ -27,7 +30,7 @@
             <div class="modal-body">
                 <div class="content">
                     <p>
-                        &nbsp &nbsp You can start testing with these two mazes by pressing the button Accept/Reset.
+                        &nbsp &nbsp You can start testing with these two mazes by pressing the button Accept/Recreate.
                         After you press
                         it, two same mazes will occur. By left-clicking the points on the left maze canvas, the start
                         point
@@ -52,36 +55,64 @@
 </div>
 <div class="mainPart">
     <div class="canvas">
-        <canvas id="leftCanvas"  onmousemove="getCordinate(event)"
+        <canvas id="leftCanvas" onmousemove="getCordinate(event)"
                 onmousedown="drawStartAndTargetPoint()" onmouseleave="clearCordinate()">
         </canvas>
-        <canvas id="rightCanvas" >
+        <canvas id="rightCanvas">
         </canvas>
     </div>
-    <p class="totalStep left">totalStep:null</p>
-    <p class="totalStep right">totalStep:null</p>
-    <div class="input">
-        MazeSize: width <input class="inputSize" type="text" name="width" id="inputWidth">
-        height <input type="text" class="inputSize" name="height" id="inputHeight">
-        <button onclick="onClick()" class="btn">Accept/Reset
-        </button>
-        <br>
-        <div class="formMethods">
-            <p>
-                Methods of forming a maze:
-            </p>
-            <select>
-                <option value="Using DFS">Using DFS</option>
-            </select>
-            <p>Animated</p>
-            <input type="radio" class="AnimationRadio" onclick="toggle()">
+    <div class="methods">
+        <div class="form-group">
+            <div>
+                <b>Algorithm:</b>
+                <select class="form-select">
+                    <option>A*</option>
+                    <option selected>Common DFS</option>
+                    <option>Optimized DFS</option>
+                </select>
+                <br>
+                <b class="totalStep left">totalStep:null</b>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <b>Algorithm:</b>
+                <select class="form-select">
+                    <option>A*</option>
+                    <option>Common DFS</option>
+                    <option>Optimized DFS</option>
+                </select>
+                <br>
+                <b class="totalStep right">totalStep:null</b>
+            </div>
         </div>
     </div>
-    <div class="points">
-        <p id="presentPoint"></p>
-        <p id="startPoint"></p>
-        <p id="targetPoint"></p>
+</div>
+<div class="input">
+    MazeSize: width <input class="inputSize" type="text" name="width" id="inputWidth">
+    height <input type="text" class="inputSize" name="height" id="inputHeight">
+    <button onclick="onClick()" class="btn">Accept/Recreate
+    </button>
+    <button onclick="ResetMaze()" class="btn">Reset
+    </button>
+    <br>
+    <div class="formMethods">
+        <p>
+            Methods of forming a maze:
+        </p>
+        <select>
+            <option value="Using DFS">Using DFS</option>
+        </select>
+        <p>Animated</p>
+        <input type="radio" class="AnimationRadio" onclick="toggle()">
     </div>
+</div>
+<div class="points">
+    <p id="presentPoint"></p>
+    <p id="startPoint"></p>
+    <p id="targetPoint"></p>
+</div>
 </div>
 </body>
 </html>
